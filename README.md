@@ -2,4 +2,4 @@ Optimize Supply Chain Management through  Automation majorly in areas such as Ec
 
 Technologies (Initial):
  
-HTML, CSS, Javascript, ReactJS, Web API's 
+HTML, CSS, Javascript, ReactJS, Web API's ,Google Cloud Platform
