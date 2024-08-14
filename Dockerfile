@@ -1,14 +1,23 @@
-# Use Node.js as the base image
-FROM node:18.15.0-alpine
-# Set the working directory in the container
+# Use a Node.js image as the base
+FROM node:18-alpine
+
+# Set the working directory
 WORKDIR /app
-# Copy package.json to the container
-COPY package.json ./
+
+# Copy package.json and package-lock.json
+COPY package*.json ./
+
 # Install dependencies
 RUN npm install
-# Copy the app's source code to the container
+
+# Copy the rest of the app
 COPY . .
-# Build the React app
+
+# Build the app
 RUN npm run build
-# Serve the build
-CMD ["npx", "serve", "-s", "build"]
+
+# Serve the built app
+EXPOSE 3000
+
+# Command to run the app
+CMD ["serve", "-s", "build"]  # Replace with your server entry point
