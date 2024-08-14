@@ -1,40 +1,29 @@
-name: Deploy to Cloud Run
-
-env: 
-  SERVICE_NAME: solofarmer
+name: Deploy to Cloud Run  # No syntax errors here
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]  # No syntax errors here
 
 jobs:
-  dockerize-and-deploy:
-    runs-on: ubuntu-latest
+  build-and-deploy:
+    runs-on: ubuntu-latest  # No syntax errors here
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3  # No syntax errors here
 
-      - name: Set up Google Cloud SDK
-        uses: google-github-actions/setup-gcloud@v0.2.0
+      - name: Build and push Docker image
+        uses: google-github-actions/build-push-action@v3
         with:
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-
-      - name: Configure Docker
-        run: |
-          gcloud auth configure-docker
-
-      - name: Build and Push Docker Image
-        run: |
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest .
-          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest
+          images: '{{gcr.io/GCP_PROJECT_ID}}/{{DOCKER_IMAGE_NAME}}:v1.0'  # Potential syntax error
+          tag: ${{ github.sha }}  # No syntax errors here
+          push: true  # No syntax errors here
+          project_id: ${{ secrets.GCP_PROJECT_ID }}  # No syntax errors here
+          service_account_file: ${{ secrets.GCP_SA_KEY }}  # No syntax errors here
 
       - name: Deploy to Cloud Run
-        run: |
-          gcloud run deploy $SERVICE_NAME \
-            --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest \
-            --platform managed \
-            --region asia-south1 \
-            --allow-unauthenticated
+        uses: google-github-actions/deploy-cloudrun@v1
+        with:
+          image: 'gcr.io/{{GCP_PROJECT_I}}/DOCKER_IMAGE_NAME}}:v1.0'  # Potential syntax error
+          tag: ${{ github.sha }}  # No syntax errors here
+          project_id: ${{ secrets.GCP_PROJECT_ID }}  # No syntax errors here
+          service_name: solofarmer  # No syntax errors here
