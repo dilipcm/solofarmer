@@ -30,11 +30,3 @@ jobs:
         run: |
           docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest .
           docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest
-
-      - name: Deploy to Cloud Run
-        run: |
-          if [[ "$GITHUB_REF" == "refs/heads/main" && "$GITHUB_RUN_NUMBER" == "1" ]]; then
-            gcloud run deploy --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest --platform managed --region asia-south1
-          else
-            gcloud run deploy $SERVICE_NAME --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest --platform managed --region asia-south1
-          fi
