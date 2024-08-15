@@ -1,29 +1,37 @@
-name: Deploy to Cloud Run  # No syntax errors here
+name: Deploy to Cloud Run
 
 on:
   push:
-    branches: [main]  # No syntax errors here
+    branches: [ main ]
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest  # No syntax errors here
-
+    runs-on: ubuntu-latest
+    secrets:
+      GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+      DOCKER_IMAGE_NAME: ${{ secrets.DOCKER_IMAGE_NAME }}  # Replace with your secret
     steps:
-      - uses: actions/checkout@v3  # No syntax errors here
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm install
+      - run: npm run build
 
       - name: Build and push Docker image
-        uses: google-github-actions/build-push-action@v3
+        uses: google-github-actions/build-packs/docker@v3
         with:
-          images: '{{gcr.io/GCP_PROJECT_ID}}/{{DOCKER_IMAGE_NAME}}:v1.0'  # Potential syntax error
-          tag: ${{ github.sha }}  # No syntax errors here
-          push: true  # No syntax errors here
-          project_id: ${{ secrets.GCP_PROJECT_ID }}  # No syntax errors here
-          service_account_file: ${{ secrets.GCP_SA_KEY }}  # No syntax errors here
+          tag: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{secrets.DOCKER_IMAGE_NAME}}:${{ github.sha }}
+          push: true
+
+      # - name: Define environment variables (optional)
+      #   run: echo "API_KEY=your_api_key" >> $GITHUB_ENV  # Replace with your actual variable
 
       - name: Deploy to Cloud Run
         uses: google-github-actions/deploy-cloudrun@v1
         with:
-          image: 'gcr.io/{{GCP_PROJECT_I}}/DOCKER_IMAGE_NAME}}:v1.0'  # Potential syntax error
-          tag: ${{ github.sha }}  # No syntax errors here
-          project_id: ${{ secrets.GCP_PROJECT_ID }}  # No syntax errors here
-          service_name: solofarmer  # No syntax errors here
+          image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{secrets.DOCKER_IMAGE_NAME}}:${{ github.sha }}
+          service-name: solofarmer
+          region: us-central1  # Replace with your desired region
+          platform: managed
+
