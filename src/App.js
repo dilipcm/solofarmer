@@ -4,7 +4,7 @@ import ProductScreen from "./components/ProductListing/ProductScreen";
 function App(){
     return (
     <div>
-        <h1 style={{textAlign:"center"}}>Solofarmer</h1>
+        <h1 style={{textAlign:"center"}}>SOLOFARMER</h1>
         <ProductScreen />
     </div>
     );
