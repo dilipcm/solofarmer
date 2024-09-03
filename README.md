@@ -2,8 +2,8 @@
 This project aims to revolutionize supply chain management by leveraging AI and automation technologies. By streamlining processes, reducing costs, and improving efficiency, we seek to enhance the overall performance of the supply chain.
 
 # Key Features and Benefits
-**Multi-user Authentication:** Securely authenticate users, including farmers, wholesalers, and drivers, to ensure data privacy and access control.
-**Ecommerce Platform:** Facilitate seamless transactions between farmers and wholesalers, eliminating middlemen and optimizing the supply chain.
+**Multi-user Authentication:** Securely authenticate users, including farmers, wholesalers, and drivers, to ensure data privacy and access control. \n
+**Ecommerce Platform:** Facilitate seamless transactions between farmers and wholesalers, eliminating middlemen and optimizing the supply chain. \n
 **Intelligent Transport:** Utilize AI-powered routing algorithms to optimize transportation routes, reduce costs, and minimize delivery times.
 **Personalized Recommendations:** Employ AI to recommend products based on user preferences, purchase history, and location, enhancing customer satisfaction.
 **Demand Forecasting:** Predict future demand for products, enabling better inventory management and reducing waste.
