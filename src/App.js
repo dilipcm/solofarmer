@@ -1,12 +1,14 @@
 import React from "react";
-import ResponsiveAppBar from "./UI/Appbar";
+import Navbar from "./UI/Navbar";
 import ProductScreen from "./components/ProductListing/ProductScreen";
 function App() {
   return (
-    <div className="App">
-      <ResponsiveAppBar />
-      <ProductScreen />
-    </div>
+    <>
+   
+      <Navbar />
+      
+      {/* <ProductScreen /> */}
+    </>
   );
 }
 export default App;
