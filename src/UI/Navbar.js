@@ -11,7 +11,7 @@ function Navbar() {
 
 
   return (
-    <AppBar position="fixed" sx={{ backgroundColor: '#fafaf5' }}>
+    <AppBar position="sticky" sx={{ backgroundColor: '#fafaf5' }}>
         <Toolbar variant="dense">
           <Logo />
           <CurrentLocation />
